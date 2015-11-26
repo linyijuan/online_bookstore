@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Bookstore Login{% endblock %}
+
+{% block content %}
+<form class="form-signin" action="home">
+<h2 class="form-signin-heading">Please sign in</h2>
+<label for="inputUsername" class="sr-only">Username</label>
+<input type="username" id="inputUsername" class="form-control" placeholder="Login name" required autofocus>
+<label for="inputPassword" class="sr-only">Password</label>
+<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+<div class="checkbox">
+  <label>
+    <input type="checkbox" value="remember-me"> Remember me
+  </label>
+  <a class="pull-right" href="">Register</a>
+</div>
+<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+</form>
+{% endblock %}
