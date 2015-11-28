@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from .models import Book
-import MySQLdb
-
-
+from django.db import connection
 
 def book_list(request):	
 	# Book.objects.create(ISBN = 9780072465631,title ='Database Management Systems',author = 'Raghu Ramakrishnan',publisher ='McGraw-Hill',keywords ='Database',year_of_publication = 2002,price = 47,format ='softcover',copies = 3,subject ='Database');
@@ -15,22 +13,21 @@ def book_list(request):
 	# Book.objects.create(ISBN = 9780735611313,title ='Code:The Hidden Language of Computer HW and SW',author = 'Charles Petzold',publisher ='Microsoft Press', keywords ='Code',year_of_publication = 2000,price = 65,format ='hardcover',copies = 8,subject ='Programming');
 	# Book.objects.create(ISBN = 9781427798190,title ='Math for Moms and Dads:just for parents',author = 'Kaplan',publisher ='Kaplan Publishing', keywords ='Math',year_of_publication = 2008,price =36,format ='softcover',copies = 5,subject ='Math');
 	# Book.objects.create(ISBN = 9781590282410,title ='Python Programming: An Introduction to CS',author = 'John Zelle',publisher ='Franklin Beedle Inc.', keywords ='Python',year_of_publication = 2010,price =18,format ='softcover',copies = 12,subject ='Programming');
-	book_list = ""
-	try:
-		con = mdb.connect(host="localhost",user='root',passwd="",db="bookstore")
-		sql = "select * from %s" %(self.models._meta.bookstore_book)
-		with con:
-			cur = con.cursor()
-			cur.execute(sql)
-			book_list = cur.fetchall()
-	except:
-		book_list = "No Book Available"
-	return render(request, 'test.html', {'book_list': book_list})
+	return render(request, 'test.html', {'book_list': Book.objects.all()})
 
 def LoginPage(request):
 	return render(request, 'login.html')
 
 def index(request):
-	return render(request, 'index.html',{'book_list': Book.objects.all()})
+	book_list = ""
+	try:
+		cur = connection.cursor()
+		cur.execute("select * from bookstore_book")
+		columns = [col[0] for col in cur.description]
+		book_list = [dict(zip(columns, row)) for row in cur.fetchall()]
+	except:
+		book_list = ""
+	return render(request, 'index.html',{'book_list': book_list})
+
 
 

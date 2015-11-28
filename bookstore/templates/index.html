@@ -68,15 +68,30 @@
 <h3>Most Popular Recommendations</h3>
 <div class="list-group">
 {% for book in book_list %}
-<a href="#" class="list-group-item">
-  <h4 class="list-group-item-heading">{{book.title}}</h4>
+<a href="#" class="list-group-item bs-callout-warning">
+	<h4 class="list-group-item-heading">{{book.title}}</h4>
   <h5 class="list-group-item-heading">By {{book.author}}</h5>
 
+<p class="starp">
+      Rating:
+      <span class="starRating">
+        <input id="rating5" type="radio" name="rating" value="5">
+        <label for="rating5">5</label>
+        <input id="rating4" type="radio" name="rating" value="4">
+        <label for="rating4">4</label>
+        <input id="rating3" type="radio" name="rating" value="3" checked>
+        <label for="rating3">3</label>
+        <input id="rating2" type="radio" name="rating" value="2">
+        <label for="rating2">2</label>
+        <input id="rating1" type="radio" name="rating" value="1">
+        <label for="rating1">1</label>
+      </span>
+    </p>
   <button class="btn btn-s btn-warning pull-right">Add to Cart</button>
   <button class="btn btn-s btn-success pull-right">Order</button>
   <p class="list-group-item-text">Published by {{book.publisher}} in {{book.year_of_publication}}</p>
   <p class="list-group-item-text">Subject: {{book.subject}}</p>
-  
+ 
 </a>
 {% endfor %}
 </div>
